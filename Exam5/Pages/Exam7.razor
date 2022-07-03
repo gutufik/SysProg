@@ -1,0 +1,20 @@
+﻿@page "/exam7"
+
+<div class="bg-primary card float-start">
+    <div class="card-body">
+        <h3>Exam7</h3>
+
+        <button @onclick="(()=> Event.InvokeAsync(Number))">Event</button>
+        <input @bind="Number" />
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<int> Event { get; set; }
+
+    public int Number { get; set; } = 1;
+
+
+}

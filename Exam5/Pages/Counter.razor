@@ -1,0 +1,68 @@
+﻿@page "/counter"
+@using Exam5.Data;
+
+<input type="text" placeholder="Name" @bind=User.Name/>
+<input type="text" placeholder="Surname" @bind=User.Surname/>
+
+<button  @onclick="SaveUser">Save</button>
+
+
+<table class="table">
+    <thead>
+        <td>
+            Name
+        </td>
+        <td>
+            Surname
+        </td>
+        <td>
+            Date
+        </td>
+        <td>
+            Del
+        </td>
+    </thead>
+    @foreach (var user in users)
+    {
+        <tr>
+            <td>
+                @user.Name
+            </td>
+            <td>
+                @user.Surname
+            </td>
+            <td>
+                @user.AddingDate
+            </td>
+            <td>
+                <button class="btn btn-danger" @onclick="(()=> DeleteUser(user))">Delete</button>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+@code {
+    public User User { get; set; }
+
+    private List<User> users;
+
+    protected override void OnInitialized()
+    {
+        users = new List<User>();
+        User = new User();
+    }
+
+    public void SaveUser()
+    {
+        User.AddingDate = DateTime.Now;
+        var user_ = new User { Name = User.Name, Surname = User.Surname, AddingDate = User.AddingDate };
+        users.Add(user_);
+    }
+    public void DeleteUser(User user)
+    {
+        users.Remove(user);
+    }
+}
+

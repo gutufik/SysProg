@@ -1,0 +1,36 @@
+﻿@page "/fetchdata"
+@using Exam5.Data;
+@inject UserStorage UserStorage;
+
+<input type="text" placeholder="Name" @bind=User.Name/>
+<input type="text" placeholder="Surname" @bind=User.Surname/>
+
+<button  @onclick="SaveUser">Save</button>
+
+
+
+
+
+@code {
+    public User User { get; set; }
+
+    private List<User> users;
+
+    protected override void OnInitialized()
+    {
+        users = new List<User>();
+        User = new User();
+    }
+
+    public void SaveUser()
+    {
+        User.AddingDate = DateTime.Now;
+        var user_ = new User { Name = User.Name, Surname = User.Surname, AddingDate = User.AddingDate };
+        UserStorage.Users.Add(user_);
+    }
+    public void DeleteUser(User user)
+    {
+        users.Remove(user);
+    }
+}
+
